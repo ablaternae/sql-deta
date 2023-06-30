@@ -1,11 +1,21 @@
-# import autoload
-![Lines of code](https://img.shields.io/tokei/lines/github/ablaternae/py-autoload)
-![Downloads](https://img.shields.io/pypi/dm/import-autoload)
-[![Statistic](https://pepy.tech/badge/import-autoload/week)](https://pepy.tech/project/import-autoload)
-[![GitHub](https://img.shields.io/github/license/ablaternae/py-tripcode)](https://github.com/ablaternae/py-autoload/blob/trunk/LICENSE.md)
 
+# Attention! not for production
+## sql deta
 
-### how it work
+this mixin wraps just a few [Peewee](https://docs.peewee-orm.com/) methods
+
+|     |     |
+| --- | --- |
+| Model.create_table() |  |
+| Model.save() | calls `deta.Base(tabel_name).put( dirty_fields | all columns )` |
+| Model.insert() | calls .save() |
+| Model.create() | calls .save() |
+| Model.update() | not wrapped |
+| Model.Meta.deta | `deta.Deta(DETA_KEY)` |
+| Model.Meta.mirrored | always sync full table, after create & before exit , `False` default |
+
+## how it work
+<!--
 no complete match
 approximate mirroring
 has limited compatibility
@@ -17,13 +27,15 @@ save
 
 load
 dump
+-->
 
 ## License
 * It's opensource and free software, see the [LICENSE](LICENSE) for more details
 
 ## similar projects
-* [import-export](https://pypi.org/project/import-export/)
-* another [autoloader](https://pypi.org/project/autoload-module/)
+* [ssqlite3](https://github.com/jnsougata/space-sqlite3/) store binary `datafile.sqlite3` in DetaBase tables
+* [ODetaM](https://github.com/rickh94/ODetaM/) Object Document Mapper for DetaBase based on pydantic
+* [detadantic](https://github.com/Jay184/detadantic/) Active-Record style wrappers to Deta Base
+* [deta-base-pydantic](https://github.com/papalotis/deta-base-pydantic/) 
 
 ## TODO
-* [ ] handle system path separator for module_name
