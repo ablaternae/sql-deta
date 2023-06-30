@@ -1,0 +1,22 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+deta = "*"
+odetam = "*"
+peewee = "*"
+more-itertools = "*"
+
+[dev-packages]
+build = "*"
+
+[requires]
+python_version = "3.10"
+
+[scripts]
+req = "pipenv requirements > requirements.txt"
+freeze = "pip freeze | tee requirements.txt"
+prep = "pipenv lock -r -d > req-all.txt"
+preprod = "pipenv lock -r > req-prod.txt"
