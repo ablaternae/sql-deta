@@ -13,35 +13,43 @@ from peewee import Model as PeeweeModel
 class PeeweeDetaMixin:
     """Mixin do magic"""
 
+    class Meta:
+        deta = None
+        mirroring: bool = False
+
     def __del__(self):
         """destructor
 
-        if Meta.permanent_mirroring is True:
+        if Meta.mirroring is True:
             self.dump() to deta.Base(Meta.table_name)
         """
-        # self._meta.get("permanent_mirroring", None)
-        # print("destructor", self._meta.get("permanent_mirroring", None))
-        # print("destructor", hasattr(self._meta, "permanent_mirroring"))
-        if (
-            hasattr(self._meta, "permanent_mirroring")
-            and self._meta.permanent_mirroring
-        ):
+        # self._meta.get("mirroring", None)
+        # print("destructor", self._meta.get("mirroring", None))
+        # print("destructor", hasattr(self._meta, "mirroring"))
+        if hasattr(self._meta, "mirroring") and self._meta.mirroring:
             self.dump()
         pass
 
     @classmethod
     def create_table(cls, safe=True, **options) -> None:
         super().create_table(safe=True, **options)
-        cls.load()
+        if hasattr(cls._meta, "mirroring") and cls._meta.mirroring:
+            cls.load()
         pass
 
     @classmethod
     def __deta_table__(cls) -> DetaTable:
         """
         return deta.Base(Meta.table_name)
+
+        raise AttributeError
         """
         # print(cls._meta.deta.Base(cls._meta.table_name))
-        return cls._meta.deta.Base(cls._meta.table_name)
+        try:
+            return cls._meta.deta.Base(cls._meta.table_name)
+        except Exception as e:
+            print("`Meta.deta=deta.Deta(DETA_KEY)` require. Error:", e.message)
+            raise AttributeError
 
     @classmethod
     def __put__(cls, __data: dict, key: str = None) -> None:

@@ -1,5 +1,5 @@
 """
 """
-__version__ = "0.0.8-alpha4"
+__version__ = "0.0.10-alpha"
 
 from .peewee import PeeweeDetaMixin
