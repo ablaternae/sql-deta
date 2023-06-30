@@ -12,7 +12,7 @@ this mixin wraps just a few [Peewee](https://docs.peewee-orm.com/) methods
 | Model.create() | calls .save() |
 | Model.update() | not wrapped |
 | Model.Meta.deta | `deta.Deta(DETA_KEY)` |
-| Model.Meta.mirrored | always sync full table, after create & before exit , `False` default |
+| Model.Meta.mirroring | always sync full table, after create & before exit , `False` default |
 
 ## how it work
 <!--
