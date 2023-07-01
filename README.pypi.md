@@ -1,16 +1,16 @@
 
 # Attention! not for production
-## sql deta
+## sql deta under construction
 
 this mixin wraps just a few [Peewee](https://docs.peewee-orm.com/) methods
 
 |     |     |
 | --- | --- |
-| Model.create_table() |  |
-| Model.save() | calls `deta.Base(tabel_name).put( dirty_fields or all columns )` |
+| Model.create_table() | `.load() if Meta.mirroring is True` |
+| Model.save() | `deta.Base(table_name).put( dirty_fields or all columns )` |
 | Model.insert() | calls .save() |
 | Model.create() | calls .save() |
-| Model.update() | not wrapped |
+| Model.update() | *not wrapped* |
 | Model.Meta.deta | `deta.Deta(DETA_KEY)` |
 | Model.Meta.mirroring | always sync full table, after create & before exit , `False` default |
 
